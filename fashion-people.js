@@ -1,0 +1,285 @@
+/* 洋芋养成 · 身材相似博主（国内外）+ 高赞搭配 + 视频入口
+   分类：allround 全能型 / formal 高端正式 / street 运动街头 / daily 日常通勤 / minimal 极简质感
+   数据来自各平台公开主页/百科/数据站，按"真实、有出处"原则收录 */
+const FASHION_CATS=[
+  { key:'allround', name:'全能型', desc:'日常、正式、运动都能穿，一衣多穿的代表，跟着学不会错' },
+  { key:'formal', name:'高端正式', desc:'西装/定制/质感向，重要场合和职场进阶专用' },
+  { key:'street', name:'运动街头', desc:'和你"大而好用"的身材最配，显高显壮不臃肿' },
+  { key:'daily', name:'日常通勤', desc:'每天出门就能用，学生党到上班族全覆盖' },
+  { key:'minimal', name:'极简质感', desc:'少而精，靠版型和颜色，练成后的干净高级感' },
+];
+const FASHION_PEOPLE=[
+  /* ===== 全能型 ===== */
+  {
+    cat:'allround',
+    name:'Harry Has',
+    platform:'YouTube',
+    link:'https://www.famousbirthdays.com/people/harry-has.html',
+    linkLabel:'资料页',
+    stats:'累计播放 5000 万+',
+    body:'约180cm / 匀称（近似参考）',
+    style:'平价衣橱 + 英伦休闲：性价比优先，全场景都能搭',
+    tips:[
+      '走"平价改造"路线：普通品牌搭出高级感，重点在剪裁和颜色',
+      '英伦元素：麂皮/帆布鞋、大地色、衬衫叠针织',
+      '教你按体型选版型，强调"试穿比看品牌重要"',
+    ],
+    outfits:[
+      {t:'大地色针织衫 + 白衬衫 + 直筒牛仔裤',d:'针织 V 领内搭衬衫露领口；直筒牛仔腰 76；帆布鞋 2cm。英伦休闲，秋冬约会通用。',link:'https://www.youtube.com/results?search_query=Harry+Has+menswear+outfit',linkLabel:'看视频' },
+      {t:'军绿外套 + 白 T + 卡其工装裤',d:'外套短款盖臀；白 T 打底；工装裤直筒；沙漠靴 3cm。街头+工装平衡，耐看实用。',link:'https://www.youtube.com/results?search_query=Harry+Has+menswear+outfit',linkLabel:'看视频' },
+    ],
+  },
+  {
+    cat:'allround',
+    name:'口口桑',
+    platform:'抖音',
+    link:'https://www.douyin.com/shipin/7585355940107520036',
+    linkLabel:'主页（抖音）',
+    stats:'44.2 万粉 · 获赞 474 万+',
+    body:'身高未公开（显高显瘦向），风格参考为主',
+    style:'简约 + 潮流融合，500 篇作品覆盖日常/街头/正式',
+    tips:[
+      '出圈系列"穿搭技巧课堂"：把显高显瘦拆成可复制的公式（如"座山雕穿搭"）',
+      '叠穿制造层次：T恤/衬衫/马甲/外套一层层加，小面积撞色点睛',
+      '比例优先：上短下长、塞衣角、裤脚收起，是他在视频里反复用的手法',
+    ],
+    outfits:[
+      {t:'白 T + 衬衫 + 针织马甲 + 直筒裤',d:'三层叠穿显层次：白 T 打底、衬衫中间、马甲收腰位；直筒裤腰 76。学生到职场都能抄。',link:'https://www.douyin.com/shipin/7585355940107520036',linkLabel:'看视频' },
+      {t:'深色大衣 + 高领打底 + 直筒西裤 + 切尔西靴',d:'"显高显瘦"公式：同色系内深外深、大衣到膝上、切尔西 4cm 拉比例。约会/正式通用。',link:'https://www.douyin.com/search/%E5%8F%A3%E5%8F%A3%E6%A1%91%20%E7%A9%BF%E6%90%AD',linkLabel:'看更多' },
+    ],
+  },
+  {
+    cat:'allround',
+    name:'Wisdm',
+    platform:'Instagram',
+    link:'https://www.instagram.com/wisdm/',
+    linkLabel:'主页（Instagram）',
+    stats:'IG 890 万粉 · 总播放 1.97 亿',
+    body:'精瘦高挑（视频参考），高级感向全能博主',
+    style:'从高奢到平价都能讲：lookbook + 拆解 + 破误区',
+    tips:[
+      '内容以"穿搭拆解"出名：把一套 look 拆成版型、颜色、层次三个维度讲',
+      '高低混搭：贵价外套 + 平价内搭是常用公式，普通人可复制',
+      '破误区型内容（如"衬衫到底要不要塞"）点赞很高，先讲原理再给方案',
+    ],
+    outfits:[
+      {t:'宽松西装 + 白 T + 直筒牛仔裤 + 德训鞋',d:'"高级感不靠正装"：西装选落肩宽松款，内搭白 T 减正式感，德训鞋 2-3cm 收尾。日常穿西装的正确打开方式。',link:'https://www.instagram.com/wisdm/',linkLabel:'看 Reels' },
+      {t:'羊绒高领 + 大衣 + 微阔西裤 + 乐福鞋',d:'全身中性色 + 材质分层：高领贴肤、大衣挺括、西裤垂坠，乐福 2cm。冬季节日/重要场合高分公式。',link:'https://www.instagram.com/wisdm/',linkLabel:'看 Reels' },
+    ],
+  },
+  /* ===== 高端正式 ===== */
+  {
+    cat:'formal',
+    name:'思远Glenindiv',
+    platform:'小红书',
+    link:'https://www.xiaohongshu.com/discovery/item/67e24207000000000d015b3f',
+    linkLabel:'主页（小红书）',
+    stats:'84.8 万粉 · 获赞与收藏 139.6 万',
+    body:'高定西装主理人（Glenindiv 谷已西装），定制西装审美天花板',
+    style:'高定西装 + "人渣穿搭指南"系列：把西装穿出松弛感',
+    tips:[
+      '爆款系列"人渣穿搭指南"：教你把正装穿得不呆板——领口、袖子、裤脚全拆开讲',
+      '核心理论是"对比度"：面料纹路、深浅色、宽窄领型要有对比，衣服才有灵魂',
+      '强调定制贴合：肩线、腰身、裤长按身材调，比买贵更重要',
+    ],
+    outfits:[
+      {t:'藏青西装 + 白衬衫 + 深灰西裤 + 牛津鞋',d:'基础三件套：西装腰身收一点、衬衫袖口露 1cm、西裤裤脚微堆。面试/见长辈/正式场合万能。',link:'https://www.xiaohongshu.com/search_result?keyword=%E6%80%9D%E8%BF%9CGlenindiv',linkLabel:'看笔记' },
+      {t:'夜场西装：黑西装 + 黑衬衫（不系扣）+ 直筒西裤',d:'"人渣穿搭指南"夜场篇：西装当外套敞开、黑衬衫打底，松弛又显气场，比全套系扣年轻。',link:'https://www.xiaohongshu.com/discovery/item/638698e6000000001b0157bf',linkLabel:'看视频' },
+    ],
+  },
+  {
+    cat:'formal',
+    name:'奶爸小马哥MarkusBoer',
+    platform:'小红书 / B站 / 抖音',
+    link:'https://baike.baidu.com/item/%E5%A5%B6%E7%88%B8%E5%B0%8F%E9%A9%AC%E5%93%A5MarkusBoer',
+    linkLabel:'资料页（百度百科）',
+    stats:'男装品牌 MarkusBoer 主理人',
+    body:'西装穿搭 + 服饰保养向，正式场合知识库',
+    style:'西装选购与保养干货：翻领、口袋巾、面料一次讲清',
+    tips:[
+      '选西装只看三点：翻领宽度（标准 9-10cm）、肩线贴合、裤长位置',
+      '口袋巾是西装点睛之笔：白口袋巾最安全，彩色/撞色用于晚宴',
+      '保养比买新更重要：羊毛西装挂对衣架、少干洗，能穿很多年',
+    ],
+    outfits:[
+      {t:'芥末黄夹克 + 芥末绿西裤 + 白衬衫',d:'他的代表性撞色：同色系不同深浅，亮眼但不浮夸，正式场合显品位。',link:'https://www.xiaohongshu.com/search_result?keyword=MarkusBoer%20%E8%A5%BF%E8%A3%85',linkLabel:'看笔记' },
+      {t:'藏青西装 + 白口袋巾 + 黑皮鞋',d:'最稳妥的正式公式：藏青不挑场合，白口袋巾点睛，黑皮鞋收尾。见长辈/面试/典礼通用。',link:'https://m.douyin.com/share/video/7294957258339896626',linkLabel:'看视频' },
+    ],
+  },
+  /* ===== 运动街头 ===== */
+  {
+    cat:'street',
+    name:'JY小嗨（JYSINOJ）',
+    platform:'小红书',
+    link:'https://www.newrank.cn/profile/xiaohongshu/5a65484e11be102e4f639fb6',
+    linkLabel:'主页（小红书）',
+    stats:'赞与收藏 68.4 万+',
+    body:'180cm / 70kg / 日常运动风，和你目标身材几乎一致',
+    style:'干净日常休闲：基础色 + 合身版型 + 一点运动感',
+    tips:[
+      '主打"舒服但不松垮"：上衣合身、裤子直筒微堆，不穿紧身也不穿大 oversize',
+      '色块控制：全身不超过 3 个颜色，白/灰/藏青打底，鞋或包做点缀',
+      '强调比例：短款上衣或塞衣角，视觉上腿更长',
+    ],
+    outfits:[
+      {t:'通勤白 T + 直筒牛仔 + 白板鞋',d:'白 T 选 70cm 衣长微弹棉；直筒牛仔裤腰 76；白板鞋 2.5cm。干净是第一印象，适合日常/自习。',link:'https://www.douyin.com/note/7468344790568996111',linkLabel:'看视频' },
+      {t:'浅灰卫衣 + 卡其工装裤 + 德训鞋',d:'卫衣肩线正好、袖长到手腕；卡其工装裤九分露脚踝；德训鞋 2-3cm。运动感 + 层次，约会咖啡局可用。',link:'https://www.douyin.com/note/7468344790568996111',linkLabel:'看视频' },
+    ],
+  },
+  {
+    cat:'street',
+    name:'Gokutf（黑夜_GK）',
+    platform:'抖音 / 小红书',
+    link:'https://dsp.feigua.cn/bloggeropen/53F35F8C0FB5BDC5CAD8D6DF662B5B0A',
+    linkLabel:'资料页',
+    stats:'178cm / 70kg（公开简介）',
+    body:'178cm / 70kg，和你现在几乎完全一样的体型',
+    style:'"没有风格·自己就是一种风格"：街头 + 日常自由切换',
+    tips:[
+      '简介原话"没有风格，自己就是一种风格"：先穿合身，再谈风格',
+      '三亚博主，夏季穿搭参考价值高：短袖版型、短裤长度、配色选择',
+      '黑白灰打底 + 一个亮色单品（鞋/包），是他的常用公式',
+    ],
+    outfits:[
+      {t:'黑 T + 浅灰束脚裤 + 白鞋',d:'上深下浅拉比例：黑 T 收上身、浅灰束脚裤提亮、白鞋呼应。街头日常两用。',link:'https://www.douyin.com/search/Gokutf',linkLabel:'看视频' },
+      {t:'白 T + 牛仔外套 + 黑色短裤 + 德训鞋',d:'夏季叠穿：牛仔外套敞开、短裤及膝上 5cm，显腿长又凉快。广东夏天直接抄。',link:'https://www.douyin.com/search/Gokutf',linkLabel:'看视频' },
+    ],
+  },
+  /* ===== 日常通勤 ===== */
+  {
+    cat:'daily',
+    name:'李从文Wen',
+    platform:'抖音',
+    link:'https://www.relangdata.cn/douyin/person_detail_3649982683420365.html',
+    linkLabel:'主页（抖音）',
+    stats:'178cm / 60kg（公开简介，健身中）',
+    body:'178cm / 60kg / 极瘦正在健身（练壮后即你的方向）',
+    style:'极简单品：基础款 + 干净配色，靠版型不靠花哨',
+    tips:[
+      '他自己"喜欢穿得简单"：衣柜里全是基础款，靠叠穿和配色出效果',
+      '瘦子加层次：薄衬衫/针织开衫叠 T 恤，增加上半身厚度',
+      '颜色做减法：黑白灰 + 一个点缀色，视觉干净显气质',
+    ],
+    outfits:[
+      {t:'白衬衫 + 黑直筒裤 + 黑德比',d:'衬衫选棉质微落肩、衣长 70；黑裤腰 76；德比 3cm。干净通勤，面试/见长辈都能用。',link:'https://www.douyin.com/note/7457866088576077093',linkLabel:'看视频' },
+      {t:'针织开衫 + 白 T + 九分卡其裤',d:'开衫选 V 领薄款；内搭白 T 露领口；卡其九分裤露脚踝。瘦子增厚上半身的经典叠穿。',link:'https://www.douyin.com/note/7457866088576077093',linkLabel:'看视频' },
+    ],
+  },
+  {
+    cat:'daily',
+    name:'鱼思粥z',
+    platform:'抖音',
+    link:'https://www.douyin.com/note/7457866088576077093',
+    linkLabel:'推荐视频（抖音）',
+    stats:'175-178cm 学生党参考',
+    body:'175-178cm / 学生党体型，和你身高段一致',
+    style:'学生党耐看叠穿：普通单品搭出层次',
+    tips:[
+      '擅长用基础单品叠穿（衬衫+马甲+外套），把普通衣服穿出层次',
+      '配饰点睛：帽子、帆布包、袜子颜色做小面积呼应',
+      '裤子选直筒/微宽松，比紧身显腿直',
+    ],
+    outfits:[
+      {t:'衬衫 + 针织马甲 + 直筒裤 + 帆布鞋',d:'衬衫白/浅蓝，马甲卡其或藏青；直筒裤腰 76；帆布鞋 2cm。校园感叠穿，日常最高利用率。',link:'https://www.douyin.com/note/7457866088576077093',linkLabel:'看视频' },
+      {t:'连帽卫衣 + 短外套 + 束脚运动裤',d:'卫衣内搭白 T 露一点下摆；短外套盖臀一半；束脚裤配板鞋 2.5cm。叠出层次又不压身高。',link:'https://www.douyin.com/note/7457866088576077093',linkLabel:'看视频' },
+    ],
+  },
+  {
+    cat:'daily',
+    name:'海与浪',
+    platform:'抖音',
+    link:'https://baike.baidu.com/item/%E6%B5%B7%E4%B8%8E%E6%B5%AA',
+    linkLabel:'资料页（百度百科）',
+    stats:'10 万粉（男士夏季穿搭）',
+    body:'男士夏季穿搭博主，风格适合 175-180 精瘦/匀称身材',
+    style:'夏季简约：版型选对 = 显高显瘦',
+    tips:[
+      '夏天重点在"版型"：短裤裤长、T 恤肩线、裤子腰位选对，效果大于花色',
+      '浅色系（白/米/浅蓝）在夏季更清爽也显干净',
+      '配一双好鞋（小白鞋/德训），整体完成度立刻提升',
+    ],
+    outfits:[
+      {t:'浅蓝短袖衬衫 + 白 T + 卡其短裤',d:'短袖衬衫敞开当外套，内搭白 T；短裤及膝上 5cm；小白鞋 2.5cm。广东夏天通勤/约会通用。',link:'https://baike.baidu.com/item/%E6%B5%B7%E4%B8%8E%E6%B5%AA',linkLabel:'看资料' },
+      {t:'白 T + 米色直筒裤 + 德训鞋',d:'白 T 衣长 70、微弹；米色直筒裤腰 76；德训鞋 2-3cm。最干净的夏季公式，谁穿都不出错。',link:'https://baike.baidu.com/item/%E6%B5%B7%E4%B8%8E%E6%B5%AA',linkLabel:'看资料' },
+    ],
+  },
+  {
+    cat:'daily',
+    name:'丹宁哲学SANHEER',
+    platform:'小红书',
+    link:'https://baike.baidu.com/item/%E4%B8%B9%E5%AE%81%E5%93%B2%E5%AD%A6SANHEER',
+    linkLabel:'资料页（百度百科）',
+    stats:'职场轻熟向（170+ 男士）',
+    body:'170+ 男士职场轻熟穿搭，适合上班/通勤场景',
+    style:'轻熟通勤：羊绒外套、皮衣、衬衫，正式和松弛之间',
+    tips:[
+      '主推"职场轻熟"：羊绒西服外套 + 高领打底，比传统西装松弛又不失正式',
+      '皮衣是轻熟神器：皮衣 + 衬衫 + 深色直筒裤，成熟但不老气',
+      '颜色用低饱和（燕麦/灰/藏青/黑），质感靠面料不靠图案',
+    ],
+    outfits:[
+      {t:'羊绒西服外套 + 高领打底 + 直筒西裤',d:'"170+ 男士职场轻熟穿搭"代表作：外套选燕麦/藏青，高领打底显脖子长，西裤直筒收脚。通勤首选。',link:'https://www.xiaohongshu.com/search_result?keyword=%E4%B8%B9%E5%AE%81%E5%93%B2%E5%AD%A6SANHEER',linkLabel:'看笔记' },
+      {t:'皮衣 + 衬衫 + 深色直筒裤 + 德训鞋',d:'皮衣短款到腰、内搭白/蓝衬衫、直筒裤腰 76、德训 2-3cm。轻熟 + 街头平衡，下班约会直接走。',link:'https://www.xiaohongshu.com/search_result?keyword=%E4%B8%B9%E5%AE%81%E5%93%B2%E5%AD%A6SANHEER',linkLabel:'看笔记' },
+    ],
+  },
+  /* ===== 极简质感 ===== */
+  {
+    cat:'minimal',
+    name:'Tim Dessaint',
+    platform:'YouTube / Instagram',
+    link:'https://www.instagram.com/timdessaint/',
+    linkLabel:'主页（Instagram）',
+    stats:'IG 24 万粉（2021 公开数据）',
+    body:'约 180cm / 精瘦（近似参考），法日混血极简风',
+    style:'极简胶囊衣橱：少而精、中性色、重版型',
+    tips:[
+      '推崇"胶囊衣橱"：20 件以内的单品互相能搭，买对不买多',
+      '全身中性色（黑/白/灰/米/藏青），靠材质和层次区分',
+      '强调合身：肩线、裤长、袖长是他视频里反复讲的三个点',
+    ],
+    outfits:[
+      {t:'黑色高领 + 羊毛大衣 + 直筒西裤 + 切尔西靴',d:'高领打底显瘦显长；大衣到膝上；西裤直筒；切尔西 4cm。秋冬约会/正式场合的高分公式。',link:'https://www.youtube.com/results?search_query=Tim+Dessaint+minimalist+outfit',linkLabel:'看视频' },
+      {t:'白 T + 蓝衬衫 + 卡其裤 + 乐福鞋',d:'衬衫敞开当第二层，白 T 打底；卡其裤九分；乐福 2cm。法式轻松感，春夏通用。',link:'https://www.youtube.com/results?search_query=Tim+Dessaint+outfit',linkLabel:'看视频' },
+    ],
+  },
+  {
+    cat:'minimal',
+    name:'Alex Costa',
+    platform:'Instagram / YouTube',
+    link:'https://www.instagram.com/alexcosta/',
+    linkLabel:'主页（Instagram）',
+    stats:'IG 约 200 万粉（2024 公开数据）',
+    body:'约176cm / 精瘦匀称（公开资料），和你身高几乎一致',
+    style:'极简运动休闲：胶囊衣橱 + 中性色 + 一点街头感',
+    tips:[
+      '最出圈的"LMD 三色调法"：全身按 Light（浅）— Medium（中）— Dark（深）三层配色，颜色自然过渡，不会出错',
+      '胶囊衣橱思路：用少量基础款互相搭配，买对不买多，先有一衣多穿的底子',
+      '强调"预算内显贵"：面料质感、剪裁、配饰细节（表/鞋/包）比堆大牌重要',
+    ],
+    outfits:[
+      {t:'白 T + 黑色皮衣 + 直筒牛仔裤 + 切尔西靴',d:'经典"低调有型"公式：皮衣加轮廓，直筒牛仔腰 76，切尔西 4cm 拉比例。晚上约会/正式休闲通用。',link:'https://www.youtube.com/results?search_query=Alex+Costa+leather+jacket+outfit',linkLabel:'看视频' },
+      {t:'奶油色卫衣 + 卡其九分裤 + 德训鞋',d:'他常穿的暖色调休闲：奶油卫衣 + 卡其裤 + 德训鞋，干净显气色，日常利用率最高。',link:'https://www.youtube.com/results?search_query=Alex+Costa+hoodie+outfit',linkLabel:'看视频' },
+    ],
+  },
+  {
+    cat:'minimal',
+    name:'Daniel Simmons',
+    platform:'YouTube / Instagram',
+    link:'https://www.youtube.com/@imdanielsimmons',
+    linkLabel:'主页（YouTube）',
+    stats:'YouTube 78.3 万订阅 · 播放 9800 万+',
+    body:'伦敦男装博主，被小红书"100 个型男"列为 No.1 参考',
+    style:'宽松极简：muted 色调、落肩剪裁、西装穿出松弛感',
+    tips:[
+      '招牌是"松弛感西装"：西装选微落肩 + 宽松直筒，配白 T 和运动鞋，正装不再拘谨',
+      '色彩全是低饱和大地色/灰白，靠面料质感撑起高级感',
+      '强调"less logo"：衣服上没有大 logo，简约就是他的辨识度',
+    ],
+    outfits:[
+      {t:'微落肩西装 + 白 T + 宽松西裤 + 白鞋',d:'他的标志性穿法：西装不系扣、内搭白 T、西裤微阔、白鞋收尾。从办公室直接去约会都不违和。',link:'https://www.youtube.com/results?search_query=Daniel+Simmons+tailoring+outfit',linkLabel:'看视频' },
+      {t:'燕麦针织 + 白 T + 直筒牛仔裤 + 帆布鞋',d:'周末休闲公式：针织开衫或套头衫 + 白 T 露领口 + 直筒牛仔腰 76 + 帆布鞋 2cm。干净松弛。',link:'https://www.youtube.com/results?search_query=Daniel+Simmons+minimal+outfit',linkLabel:'看视频' },
+    ],
+  },
+];
+
+if (typeof module !== "undefined" && module.exports) { module.exports = { FASHION_PEOPLE, FASHION_CATS }; }

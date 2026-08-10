@@ -276,6 +276,60 @@ function renderStyle(){
     '<div class="style-row myth"><b>'+esc(m[0])+'</b><span>'+esc(m[1])+'</span></div>').join("");
 }
 
+/* ---------- 身材相似博主 ---------- */
+function fashCardHTML(p){
+  const stats = p.stats ? '<div class="fash-stats">' + esc(p.stats) + "</div>" : "";
+  const tips = (p.tips || []).map((t) => "<li>" + esc(t) + "</li>").join("");
+  const outfits = (p.outfits || []).map((o) =>
+    '<div class="fash-outfit">' +
+    '<div class="fash-o-head"><b>' + esc(o.t) + "</b>" +
+    (o.link ? '<a class="fash-link" href="' + esc(o.link) + '" target="_blank" rel="noopener">' + esc(o.linkLabel || "看视频") + " ↗</a>" : "") +
+    "</div>" +
+    '<div class="fash-o-d">' + esc(o.d) + "</div>" +
+    "</div>"
+  ).join("");
+  return (
+    '<div class="card fash-card">' +
+    '<div class="fash-head">' +
+    "<div>" +
+    '<div class="fash-name">' + esc(p.name) + "</div>" +
+    '<div class="fash-platform">' + esc(p.platform) + " · " + esc(p.body) + "</div>" +
+    stats +
+    "</div>" +
+    '<div class="fash-actions">' +
+    '<button class="mini-copy" data-copy-name="' + esc(p.name) + '">复制名字</button>' +
+    (p.link ? '<a class="fash-link" href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(p.linkLabel || "主页") + " ↗</a>" : "") +
+    "</div>" +
+    "</div>" +
+    '<div class="fash-style"><span class="ev-label">风格</span>' + esc(p.style) + "</div>" +
+    (tips ? '<div class="fash-tips"><div class="sec-label">他/她的穿搭技巧</div><ul>' + tips + "</ul></div>" : "") +
+    '<div class="sec-label">高赞搭配（文字版）</div>' +
+    outfits +
+    "</div>"
+  );
+}
+function renderFashion(){
+  if (!FASHION_PEOPLE || !FASHION_PEOPLE.length) {
+    $("fashionCount").textContent = "0";
+    $("fashionList").innerHTML = '<div class="empty">暂无博主数据</div>';
+    return;
+  }
+  $("fashionCount").textContent = FASHION_PEOPLE.length;
+  const cats = (FASHION_CATS || []).filter((c) => FASHION_PEOPLE.some((p) => p.cat === c.key));
+  $("fashionList").innerHTML = cats.map((c) => {
+    const people = FASHION_PEOPLE.filter((p) => p.cat === c.key);
+    if (!people.length) return "";
+    return (
+      '<div class="fash-cat">' +
+      '<div class="fash-cat-head"><span class="fash-cat-name">' + esc(c.name) + "</span>" +
+      '<span class="fash-cat-n">' + people.length + " 位</span></div>" +
+      '<p class="fash-cat-desc">' + esc(c.desc) + "</p>" +
+      people.map(fashCardHTML).join("") +
+      "</div>"
+    );
+  }).join("");
+}
+
 const CATS = ["全部"].concat([...new Set(KNOWLEDGE.map((p) => p.c))]);
 function renderCatChips() {
   $("catChips").innerHTML = CATS.map((c) =>
@@ -350,6 +404,7 @@ function switchTab(name) {
   if (name === "toc") renderToc();
   if (name === "humor") { renderHumorChips(); renderHumorList(); }
   if (name === "style") renderStyle();
+  if (name === "fashion") renderFashion();
   if (name === "column") renderColumn();
   if (name === "me") { renderStats(); renderFav(); }
 }
@@ -519,6 +574,11 @@ $("catChips").addEventListener("click", (e) => {
 });
 
 document.addEventListener("click", (e) => {
+  const copyNameBtn = e.target.closest("[data-copy-name]");
+  if (copyNameBtn) {
+    copyText(copyNameBtn.dataset.copyName).then(() => toast("已复制博主名字"));
+    return;
+  }
   if (e.target.matches("#modalClose") || e.target.classList.contains("modal-mask")) { closeFull(); return; }
   if (e.target.matches("#modalCopy")) {
     if (modalCard) {
@@ -590,6 +650,7 @@ renderHumorList();
 renderGolden();
 renderPractice();
 renderStyle();
+renderFashion();
 renderToc();
 renderColumn();
 
