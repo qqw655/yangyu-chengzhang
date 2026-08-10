@@ -39,6 +39,7 @@ let currentIdx = dailyIndex();
 let browseCat = "全部";
 let searchKw = "";
 let modalCard = null;
+let fashionOpen = {};
 let humorIdx = humorDailyIndex();
 let humorCat = "全部";
 let humorKw = "";
@@ -317,17 +318,26 @@ function renderFashion(){
   $("fashionCount").textContent = FASHION_PEOPLE.length;
   const cats = (FASHION_CATS || []).filter((c) => FASHION_PEOPLE.some((p) => p.cat === c.key));
   $("fashionList").innerHTML = cats.map((c) => {
-    const people = FASHION_PEOPLE.filter((p) => p.cat === c.key);
+    const people = FASHION_PEOPLE.filter((p) => p.cat === c.key).sort((a, b) => (b.sortKey || 0) - (a.sortKey || 0));
     if (!people.length) return "";
+    const open = fashionOpen[c.key];
     return (
-      '<div class="fash-cat">' +
-      '<div class="fash-cat-head"><span class="fash-cat-name">' + esc(c.name) + "</span>" +
-      '<span class="fash-cat-n">' + people.length + " 位</span></div>" +
-      '<p class="fash-cat-desc">' + esc(c.desc) + "</p>" +
-      people.map(fashCardHTML).join("") +
+      '<div class="fash-cat' + (open ? " open" : "") + '">' +
+      '<button class="fash-cat-head" data-fcat="' + esc(c.key) + '">' +
+      '<span class="fash-cat-name">' + esc(c.name) + "</span>" +
+      '<span class="fash-cat-meta">' + people.length + " 位 · " + (open ? "收起" : "展开") + "</span>" +
+      '<span class="fash-cat-arrow">' + (open ? "▾" : "▸") + "</span>" +
+      "</button>" +
+      (open ? '<p class="fash-cat-desc">' + esc(c.desc) + "</p>" + people.map(fashCardHTML).join("") : "") +
       "</div>"
     );
   }).join("");
+}
+function fashionToggleAll(){
+  const cats = (FASHION_CATS || []).filter((c) => FASHION_PEOPLE.some((p) => p.cat === c.key));
+  const allOpen = cats.every((c) => fashionOpen[c.key]);
+  cats.forEach((c) => { if (allOpen) delete fashionOpen[c.key]; else fashionOpen[c.key] = true; });
+  renderFashion();
 }
 
 const CATS = ["全部"].concat([...new Set(KNOWLEDGE.map((p) => p.c))]);
@@ -551,6 +561,8 @@ $("goldenCopyBtn").addEventListener("click", () => {
   copyText(g.t + (g.tag ? "\n（" + g.tag + "）" : "")).then(() => toast("已复制"));
 });
 
+$("fashionToggleBtn").addEventListener("click", fashionToggleAll);
+
 $("practiceBtn").addEventListener("click", () => {
   const t = todayStr();
   if (practices.has(t)) { practices.delete(t); toast("已取消今日练习"); }
@@ -574,6 +586,13 @@ $("catChips").addEventListener("click", (e) => {
 });
 
 document.addEventListener("click", (e) => {
+  const fcatBtn = e.target.closest("[data-fcat]");
+  if (fcatBtn) {
+    const k = fcatBtn.dataset.fcat;
+    if (fashionOpen[k]) delete fashionOpen[k]; else fashionOpen[k] = true;
+    renderFashion();
+    return;
+  }
   const copyNameBtn = e.target.closest("[data-copy-name]");
   if (copyNameBtn) {
     copyText(copyNameBtn.dataset.copyName).then(() => toast("已复制博主名字"));
