@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#8C5A2B">
+<title>洋芋养成</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="head-left">
+    <img class="logo" src="icons/icon-192.png" alt="洋芋养成">
+    <div>
+      <h1>洋芋养成</h1>
+      <p id="headLine" class="head-line">每天变好一点点</p>
+    </div>
+  </div>
+  <div id="headDate" class="head-date"></div>
+</header>
+
+<main>
+  <!-- 今日 -->
+  <section id="tab-today" class="tab active">
+    <div class="card today-card">
+      <div class="today-top">
+        <span class="today-tag">今日一课</span>
+        <span id="todayCat" class="cat-chip"></span>
+      </div>
+      <div class="today-src" id="todaySrc"></div>
+      <div class="today-title" id="todayTitle"></div>
+      <div class="detail" id="todayDetail"></div>
+      <div class="detail act" id="todayAction"></div>
+      <div class="btn-row">
+        <button id="checkinBtn" class="btn primary">今日打卡</button>
+        <button id="shuffleBtn" class="btn">换一课</button>
+      </div>
+      <div class="btn-row">
+        <button id="favBtn" class="btn">☆ 收藏</button>
+        <button id="fullBtn" class="btn">完整卡片</button>
+      </div>
+    </div>
+    <div class="card streak-card">
+      <div class="streak-num" id="streakNum">0</div>
+      <div class="streak-label">连续打卡天数</div>
+      <div class="streak-sub" id="streakSub">今天还没打卡哦</div>
+    </div>
+  </section>
+
+  <!-- 知识库 -->
+  <section id="tab-browse" class="tab">
+    <div class="card">
+      <input id="searchInput" class="search" type="search" placeholder="搜索标题 / 来源 / 关键词">
+      <div class="chips-line wrap" id="catChips"></div>
+    </div>
+    <div id="cardList"></div>
+  </section>
+
+  <!-- 目录 -->
+  <section id="tab-toc" class="tab">
+    <div class="card">
+      <div class="card-title">全部内容目录</div>
+      <p class="hint">按分类查看全部卡片，点标题直接打开完整内容。总数：<span id="tocCount"></span></p>
+    </div>
+    <div id="tocList"></div>
+  </section>
+
+  <!-- 收藏 -->
+
+  <!-- 幽默聊天 -->
+  <section id="tab-humor" class="tab">
+    <div class="card golden-card">
+      <div class="today-top">
+        <span class="today-tag">今日金句</span>
+        <span id="goldenTag" class="cat-chip"></span>
+      </div>
+      <div class="golden-line" id="goldenLine"></div>
+      <div class="btn-row">
+        <button id="goldenCopyBtn" class="btn">复制</button>
+        <button id="goldenShuffleBtn" class="btn primary">换一句</button>
+      </div>
+    </div>
+    <div class="card practice-card">
+      <div class="today-top">
+        <span class="today-tag">撩人练习</span>
+        <span id="practiceCat" class="cat-chip"></span>
+      </div>
+      <div class="today-src" id="practiceSrc"></div>
+      <div class="today-title" id="practiceTitle"></div>
+      <div class="example" id="practiceEx"></div>
+      <div class="btn-row">
+        <button id="practiceBtn" class="btn primary">练完打卡</button>
+      </div>
+      <div class="streak-sub" id="practiceStreakSub"></div>
+    </div>
+    <div class="card today-card">
+      <div class="today-top">
+        <span class="today-tag">今日一梗</span>
+        <span id="humorCat" class="cat-chip"></span>
+      </div>
+      <div class="today-src" id="humorSrc"></div>
+      <div class="today-title" id="humorTitle"></div>
+      <div class="detail" id="humorDetail"></div>
+      <div class="example" id="humorEx"></div>
+      <div class="detail act" id="humorAction"></div>
+      <div class="btn-row">
+        <button id="humorShuffleBtn" class="btn primary">换一梗</button>
+        <button id="humorFavBtn" class="btn">☆ 收藏</button>
+      </div>
+      <div class="btn-row">
+        <button id="humorFullBtn" class="btn">完整卡片</button>
+      </div>
+    </div>
+    <div class="card">
+      <input id="humorSearch" class="search" type="search" placeholder="搜索幽默卡片 / 案例">
+      <div class="chips-line wrap" id="humorChips"></div>
+    </div>
+    <div id="humorList"></div>
+  </section>
+
+  <!-- 穿搭 -->
+  <section id="tab-style" class="tab">
+    <div class="card">
+      <div class="card-title">目标身材穿搭基准</div>
+      <p class="hint">按你的完美状态（177-178cm / 70-72kg / 体脂12-14% / 肩118-122 / 腰74-76）定制，数字按这个身材计算。</p>
+      <div id="styleBody" class="style-list"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">通用尺码规则（177cm）</div>
+      <div id="styleRules" class="style-list"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">场景 × 穿搭</div>
+      <p class="hint">每个场景标了：穿什么、配什么、为什么（研究依据）、避开什么、更合哪种气质的女生。</p>
+      <div id="styleScenes"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">穿搭误区（已核对，去掉错误信息）</div>
+      <div id="styleMyths" class="style-list"></div>
+    </div>
+  </section>
+
+  <!-- 专栏 -->
+  <section id="tab-column" class="tab">
+    <div class="card">
+      <div class="card-title" id="colTitle"></div>
+      <p class="hint" id="colIntro"></p>
+    </div>
+    <div id="columnBody"></div>
+  </section>
+
+  <!-- 我的 -->
+  <section id="tab-me" class="tab">
+    <div class="card">
+      <div class="card-title">我的收藏 <span id="favCount" class="chip small"></span></div>
+      <p class="hint">点卡片看完整内容，点 ☆ 取消收藏</p>
+      <div id="favList"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">打卡记录</div>
+      <div class="stat-row">
+        <div class="stat"><b id="statStreak">0</b><span>连续天数</span></div>
+        <div class="stat"><b id="statTotal">0</b><span>累计打卡</span></div>
+        <div class="stat"><b id="statPractice">0</b><span>撩练打卡</span></div>
+        <div class="stat"><b id="statFav">0</b><span>收藏卡片</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">证据说明</div>
+      <ul class="notes">
+        <li>卡片综合了抖音"火种泰勒"《情感原始人》等课程观点，与顶级文献/书籍对照筛选：Buss 1989 跨文化择偶研究、Rogers 1957 共情倾听、Gottman 婚姻研究、依恋理论、Dweck《Mindset》、Neff 自我同情、Clear《原子习惯》、Fogg《Tiny Habits》等。</li>
+        <li>幽默板块依据：Bressler 等 2006（幽默生产与择偶）、Martin 2007（幽默四风格）、Keltner 等 2001（调侃即社交游戏）、Treger 等 2013（幽默=兴趣信号）、Huang 等 2015（嘲讽的边界）、Proyer（玩性与关系满意度）。</li>
+        <li>穿搭板块依据：Elliot 等 2010（红色提升男性吸引力，J Exp Psychol Gen）、Vrij 1997（黑色感知研究）、ISASE 2024（颜色与力量感）、Fetscherin 2020（男性整洁度与胜任感）、Sell 2017（上肢力量线索）+ 第一印象/晕轮效应研究。</li>
+        <li>扩充卡片库依据：Gable 2004（主动建设性回应）、Montoya 2008（相似性荟萃）、Aron 1997（自我表露）、Locke & Latham 2002（目标设定）、Gross 2015（情绪调节）、Leproult 2011（睡眠与睾酮）、Cheng & Tracy 2016（威望-支配）、Holt-Lunstad 2010（社交连接）+ 国内婚恋大数据（百合佳缘/珍爱网、北大 2014 实验）。</li>
+        <li>原则：<b>有研究支持的留下，营销话术（操控潜意识/调情术/完美男性/打压式撩妹）明确标为误区</b>。</li>
+        <li>资料来源仅作了解，不构成心理/医学建议；情绪持续低落请找专业咨询。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">数据</div>
+      <div class="btn-row">
+        <button id="exportBtn" class="btn">导出备份(JSON)</button>
+        <label class="btn file-btn">导入备份<input type="file" id="importFile" accept=".json" hidden></label>
+      </div>
+      <div class="btn-row">
+        <button id="clearDataBtn" class="btn danger">清空打卡与收藏</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 完整卡片 -->
+<div id="fullModal" class="modal hidden">
+  <div class="modal-mask"></div>
+  <div class="full-card">
+    <div class="full-head">
+      <span class="full-head-title">完整卡片</span>
+      <span class="full-actions">
+        <button id="modalCopy" class="mini-btn">复制</button>
+        <button id="modalClose" class="mini-btn close">×</button>
+      </span>
+    </div>
+    <div class="full-body">
+      <div id="fullCat" class="cat-chip"></div>
+      <div id="fullTitle" class="full-title"></div>
+      <div id="fullSrc" class="full-src"></div>
+      <div class="divider"></div>
+      <div class="sec-label">内容</div>
+      <div id="fullDetail" class="detail"></div>
+      <div class="divider"></div>
+      <div class="sec-label">案例</div>
+      <div id="fullEx" class="example"></div>
+      <div class="divider"></div>
+      <div class="sec-label">行动</div>
+      <div id="fullAction" class="detail act"></div>
+    </div>
+  </div>
+</div>
+
+<nav id="bottomNav">
+  <button data-tab="today" class="active">今日</button>
+  <button data-tab="toc">目录</button>
+  <button data-tab="browse">知识</button>
+  <button data-tab="humor">幽默</button>
+  <button data-tab="style">穿搭</button>
+  <button data-tab="column">专栏</button>
+  <button data-tab="me">我的</button>
+</nav>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="cards.js"></script>
+<script src="banter.js"></script>
+<script src="growth.js"></script>
+<script src="style.js"></script>
+<script src="column.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
