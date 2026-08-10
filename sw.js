@@ -1,5 +1,5 @@
 "use strict";
-const CACHE = "yy-chengzhang-v4";
+const CACHE = "yy-chengzhang-v5";
 const ASSETS = [
   "./", "./index.html", "./style.css", "./app.js", "./cards.js", "./banter.js", "./growth.js", "./style.js", "./fashion-people.js", "./column.js",
   "./manifest.webmanifest", "./icons/icon-180.png", "./icons/icon-192.png", "./icons/icon-512.png"
