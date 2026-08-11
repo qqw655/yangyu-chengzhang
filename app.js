@@ -45,7 +45,7 @@ let humorCat = "全部";
 let humorKw = "";
 let goldenIdx = goldenDailyIndex();
 
-const KNOWLEDGE = CARDS.concat(GROWTH || []);
+const KNOWLEDGE = CARDS.concat(GROWTH || [], HUOZHONG_CARDS || []);
 const ALL = KNOWLEDGE.concat(BANTER || []);
 
 function dailyIndex() {
@@ -258,6 +258,41 @@ function renderColumn(){
     '<div class="card"><div class="card-title">误区：不是这样</div>'+
     COLUMN.myths.map(m=>'<div class="col-row myth"><div class="col-t">'+esc(m[0])+'</div><div class="col-d">'+esc(m[1])+'</div></div>').join("")+'</div>'+
     '<div class="card"><div class="card-title">主要依据</div><div class="col-ref">'+esc(COLUMN.refs)+'</div></div>';
+  renderHz();
+}
+
+/* ---------- 火种·勇恋派 专栏 ---------- */
+let hzKw = "";
+function hzItemHTML(w){
+  const dur = w.s ? (w.s >= 60 ? Math.round(w.s / 60) + "分" + (w.s % 60 ? w.s % 60 + "秒" : "") : w.s + "秒") : "";
+  const text = w.d || "(口播视频，无文字简介)";
+  return (
+    '<div class="hz-item">' +
+    '<div class="hz-meta"><span class="hz-likes">' + w.l + " 赞</span>" +
+    (w.p ? '<span class="hz-pin">置顶</span>' : "") +
+    (dur ? "<span>" + esc(dur) + "</span>" : "") +
+    (w.t ? "<span>" + esc(w.t) + "</span>" : "") +
+    "</div>" +
+    '<div class="hz-desc">' + esc(text) + "</div>" +
+    "</div>"
+  );
+}
+function renderHz(){
+  const p = HUOZHONG_PROFILE || {};
+  $("hzProfile").innerHTML =
+    '<div class="hz-profile">' +
+    '<div class="hz-name">' + esc(p.name) + '</div>' +
+    '<div class="hz-stats">' + esc(p.stats) + " · " + esc(p.id) + "</div>" +
+    '<div class="hz-sig">' + esc(p.signature) + "</div>" +
+    '<div class="hz-note">' + esc(p.note) + "</div>" +
+    (p.link ? '<a class="fash-link" style="margin-top:8px" href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(p.linkLabel || "打开主页") + " ↗</a>" : "") +
+    "</div>";
+  const kw = hzKw.trim().toLowerCase();
+  const list = (HUOZHONG_WORKS || []).filter(w => !kw || (w.d || "").toLowerCase().includes(kw));
+  const shown = kw ? list : list.slice(0, 60);
+  $("hzList").innerHTML =
+    '<div class="hint">' + list.length + " 条" + (kw ? "（已过滤）" : "（显示前 60 条，搜索可查看全部）") + "</div>" +
+    (shown.length ? shown.map(hzItemHTML).join("") : '<div class="empty">没有匹配的作品</div>');
 }
 
 /* ---------- 穿搭板块 ---------- */
@@ -562,6 +597,11 @@ $("goldenCopyBtn").addEventListener("click", () => {
 });
 
 $("fashionToggleBtn").addEventListener("click", fashionToggleAll);
+
+$("hzSearch").addEventListener("input", (e) => {
+  hzKw = e.target.value;
+  renderHz();
+});
 
 $("practiceBtn").addEventListener("click", () => {
   const t = todayStr();
