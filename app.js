@@ -278,6 +278,19 @@ function hzItemHTML(w){
   );
 }
 function renderHz(){
+  const trans = HUOZHONG_TRANSCRIPTS || [];
+  $("hzTrans").innerHTML =
+    '<div class="hz-trans-head">口播内容转录（' + trans.length + ' 条精选）</div>' +
+    '<p class="hint" style="margin:6px 0 10px">置顶 + 点赞最高的 6 条视频，下载音频后语音识别转录。自动转录可能有同音错字，摘要与金句已人工整理；完整原文可展开查看。观点不代表科学共识，⚠️ 处请谨慎。</p>' +
+    trans.map(t =>
+      '<div class="card hz-t-card">' +
+      '<div class="hz-t-title">' + esc(t.title) + "</div>" +
+      '<div class="hz-meta"><span class="hz-likes">' + t.likes + " 赞</span><span>" + esc(t.dur) + "</span></div>" +
+      '<div class="hz-t-summary">' + esc(t.summary) + "</div>" +
+      (t.quotes && t.quotes.length ? '<div class="hz-t-quotes">' + t.quotes.map(q => "<p>“" + esc(q) + "”</p>").join("") + "</div>" : "") +
+      '<details class="hz-t-full"><summary>展开完整转录（' + Math.round(t.text.length / 100) / 10 + " 千字）</summary><div class=\"hz-t-text\">" + esc(t.text) + "</div></details>" +
+      "</div>"
+    ).join("");
   const p = HUOZHONG_PROFILE || {};
   $("hzProfile").innerHTML =
     '<div class="hz-profile">' +
