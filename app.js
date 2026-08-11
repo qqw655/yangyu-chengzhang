@@ -45,6 +45,17 @@ let humorCat = "全部";
 let humorKw = "";
 let goldenIdx = goldenDailyIndex();
 
+/* 目录/知识库分类顺序：正能量、不尴尬的内容在前，两性类沉底 */
+const CAT_ORDER = [
+  "内在力量", "情绪稳定", "行动与习惯", "边界与真诚", "沟通与倾听", "男性成长",
+  "关系经营", "误区提醒", "幽默原理", "兄弟局·有趣", "火种·勇恋派",
+  "吸引力真相", "吸引力科学", "两性真相", "暧昧局·调情"
+];
+function catRank(c) {
+  const i = CAT_ORDER.indexOf(c);
+  return i < 0 ? 999 : i;
+}
+
 const KNOWLEDGE = CARDS.concat(GROWTH || [], HUOZHONG_CARDS || []);
 const ALL = KNOWLEDGE.concat(BANTER || []);
 
@@ -236,7 +247,7 @@ let tocOpen = new Set();
 function renderToc(){
   const groups = {};
   ALL.forEach((p)=>{ (groups[p.c]=groups[p.c]||[]).push(p); });
-  const cats = Object.keys(groups).sort((a,b)=>groups[b].length-groups[a].length);
+  const cats = Object.keys(groups).sort((a,b)=>catRank(a)-catRank(b) || groups[b].length-groups[a].length);
   $("tocCount").textContent = ALL.length + " 张";
   $("tocList").innerHTML = cats.map(c=>{
     const open = tocOpen.has(c);
@@ -388,7 +399,7 @@ function fashionToggleAll(){
   renderFashion();
 }
 
-const CATS = ["全部"].concat([...new Set(KNOWLEDGE.map((p) => p.c))]);
+const CATS = ["全部"].concat([...new Set(KNOWLEDGE.map((p) => p.c))].sort((a,b)=>catRank(a)-catRank(b)));
 function renderCatChips() {
   $("catChips").innerHTML = CATS.map((c) =>
     '<button class="chip' + (c === browseCat ? " on" : "") + '" data-cat="' + esc(c) + '">' + esc(c) + "</button>"
